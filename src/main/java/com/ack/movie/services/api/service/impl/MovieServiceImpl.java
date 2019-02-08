@@ -26,7 +26,6 @@ public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
 
     @Cacheable(value = CacheConfiguration.MOVIE_CACHE, unless = "#result == null")
-
     public Movie getMovieById(String title) {
         log.info("MovieService is started for this movie : {}", title);
 
