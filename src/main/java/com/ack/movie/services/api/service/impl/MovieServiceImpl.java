@@ -37,7 +37,10 @@ public class MovieServiceImpl implements MovieService {
 
             log.info("No movie found in database requested to OMDB API. ");
             Movie omdbResponseMovie = getMovieFromOMDBApi(title);
-            movieRepository.save(omdbResponseMovie);
+            if (Objects.nonNull(omdbResponseMovie.getErrorCode())
+                    && !omdbResponseMovie.getErrorCode().equals(OmdbApiConstants.NOT_FOUND_ERROR_CODE)) {
+                movieRepository.save(omdbResponseMovie);
+            }
             return omdbResponseMovie;
         }
     }
@@ -45,20 +48,38 @@ public class MovieServiceImpl implements MovieService {
     private Movie getMovieFromOMDBApi(String title) {
         RestTemplate restTemplate = new RestTemplate();
         try {
-            return restTemplate.getForObject(constructMovieUri(title).toUriString(), Movie.class);
+            Movie omdbApiMovieResponse = restTemplate.getForObject(constructMovieUri(title).toUriString(), Movie.class);
+            if (Objects.requireNonNull(omdbApiMovieResponse).getResponse().equals(Boolean.FALSE)) {
+                return Movie.builder()
+                        .title(null)
+                        .errorCode(OmdbApiConstants.NOT_FOUND_ERROR_CODE)
+                        .errorMessages("No movie found in OMBD API for given title.")
+                        .build();
+            } else {
+                return omdbApiMovieResponse;
+            }
 
         } catch (HttpClientErrorException e) {
             final HttpStatus httpStatus = e.getStatusCode();
 
             if (Objects.equals(httpStatus, HttpStatus.NOT_FOUND)) {
                 log.info("No movie found in OMBD API for given title. ");
+                return Movie.builder()
+                        .title(null)
+                        .errorCode(OmdbApiConstants.NOT_FOUND_ERROR_CODE)
+                        .errorMessages("No movie found in OMBD API for given title.")
+                        .build();
             } else {
                 log.error("HttpStatus : " + httpStatus + " returned!", e);
             }
         } catch (Exception e) {
             log.error("Unexpected error occurred while getting movie!", e);
         }
-        return Movie.builder().build();
+        return Movie.builder()
+                .title(null)
+                .errorCode(OmdbApiConstants.NOT_FOUND_ERROR_CODE)
+                .errorMessages("Unexpected error occurred while getting movie!")
+                .build();
     }
 
     private UriComponents constructMovieUri(String title) {

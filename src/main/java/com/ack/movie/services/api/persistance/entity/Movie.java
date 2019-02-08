@@ -46,7 +46,7 @@ public class Movie {
     @JsonProperty("Actors")
     private String actors;
     @JsonProperty("Response")
-    private String response;
+    private Boolean response;
     @JsonProperty("Type")
     private String type;
     @JsonProperty("Awards")
@@ -63,4 +63,6 @@ public class Movie {
     private String genre;
     @JsonProperty("Writer")
     private String writer;
+    private String errorMessages;
+    private Integer errorCode;
 }
