@@ -18,7 +18,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @GetMapping
-    public Movie getMovie(@RequestParam String title) {
+    public Movie getMovieByTitle(@RequestParam String title) {
         return movieService.getMovieById(title);
     }
 }
