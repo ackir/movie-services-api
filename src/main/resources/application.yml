@@ -1,0 +1,15 @@
+spring:
+  security:
+    basic:
+      path: /movie
+    user:
+      name: ${BASIC_AUTHENTICATION_USERNAME:movie-user}
+      password: ${BASIC_AUTHENTICATION_PASSWORD:123456}
+
+info:
+  build:
+    name: @project.name@
+    description: @project.description@
+    group: @project.groupId@
+    artifact: @project.artifactId@
+    version: @project.version@
