@@ -1,4 +1,4 @@
-package com.ack.movie.services.api.service.impl;
+package com.ack.movie.services.api.service;
 
 import com.ack.movie.services.api.configuration.OmdbApiConstants;
 import com.ack.movie.services.api.persistance.entity.Movie;
