@@ -15,13 +15,3 @@ services:
     - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://mongo:27017
     links:
     - mongo
-
-
-
-  movie-services-api:
-    image: aytunccankir/movie-services-api:0.0.1-SNAPSHOT
-    ports:
-    - 8080:8080
-    links:
-    - mongo
-    entrypoint: “java -Djava.security.egd=file:/dev/./urandom","-jar","/movie-services-api.jar”
