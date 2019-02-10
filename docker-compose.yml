@@ -1,4 +1,4 @@
-version: "2.0"
+version: "3.0"
 services:
   mongo:
     image: mongo:3.2.4
@@ -6,10 +6,6 @@ services:
     - 27017:27017
     command: --smallfiles
 
-  mongo-init:
-    build: ./mongo-init
-    links:
-    - mongo
 
   mongo-client:
     image: mongoclient/mongoclient
@@ -23,9 +19,9 @@ services:
 
 
   movie-services-api:
-    image: aytunccankir/movie-services-api
+    image: aytunccankir/movie-services-api:0.0.1-SNAPSHOT
     ports:
     - 8080:8080
     links:
     - mongo
-    entrypoint: “java -Djava.security.egd=file:/dev/./urandom -jar /app.jar”
+    entrypoint: “java -Djava.security.egd=file:/dev/./urandom","-jar","/movie-services-api.jar”
