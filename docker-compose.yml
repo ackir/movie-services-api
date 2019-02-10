@@ -1,27 +1,13 @@
 version: "3.0"
 services:
   mongo:
-    image: mongo:3.2.4
+    image: mongo
     ports:
     - 27017:27017
-    command: --smallfiles
-
-
-  mongo-client:
-    image: mongoclient/mongoclient
-    ports:
-    - 3030:3000
-    environment:
-    - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://mongo:27017
-    links:
-    - mongo
-
-
 
   movie-services-api:
-    image: movie-services-api:latest
+    image: movie-services-api
     ports:
     - 8080:8080
     links:
     - mongo
-    entrypoint: “java -Djava.security.egd=file:/dev/./urandom","-jar","/movie-services-api.jar”

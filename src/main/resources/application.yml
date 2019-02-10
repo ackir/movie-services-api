@@ -1,4 +1,10 @@
 spring:
+  data:
+    mongodb:
+      database: test
+      host: mongo
+      port: 27017
+
   security:
     basic:
       path: /movie

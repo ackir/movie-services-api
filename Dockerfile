@@ -1,20 +1,8 @@
-# Start with a base image containing Java runtime
-FROM openjdk:8-jdk
-
-# Add Maintainer Info
-LABEL maintainer="aytunccankir@gmail.com"
-
-# Add a volume pointing to /tmp
-VOLUME /tmp
-
-# Make port 8080 available to the world outside this container
+FROM java:openjdk-8
+ 
 EXPOSE 8080
-
-# The application's jar file
-ARG JAR_FILE=target/movie-services-api.jar
-
-# Add the application's jar to the container
-ADD ${JAR_FILE} movie-services-api.jar
-
-# Run the jar file 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/movie-services-api.jar"]
+COPY . ./movie-services-api
+WORKDIR ./movie-services-api
+RUN bash -c 'touch /movie-services-api.jar'
+ADD /target/movie-services-api.jar /movie-services-api/movie-services-api.jar
+CMD java -jar movie-services-api.jar
