@@ -63,6 +63,8 @@ public class Movie {
     private String genre;
     @JsonProperty("Writer")
     private String writer;
+    @JsonProperty("Error")
+    private String error;
     private String errorMessages;
     private Integer errorCode;
 }

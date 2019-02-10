@@ -51,9 +51,8 @@ public class MovieServiceImpl implements MovieService {
             Movie omdbApiMovieResponse = restTemplate.getForObject(constructMovieUri(title).toUriString(), Movie.class);
             if (Objects.requireNonNull(omdbApiMovieResponse).getResponse().equals(Boolean.FALSE)) {
                 return Movie.builder()
-                        .title(null)
                         .errorCode(OmdbApiConstants.NOT_FOUND_ERROR_CODE)
-                        .errorMessages("No movie found in OMBD API for given title.")
+                        .errorMessages(OmdbApiConstants.NOT_FOUND_ERROR_MESSAGE)
                         .build();
             } else {
                 return omdbApiMovieResponse;
@@ -65,9 +64,8 @@ public class MovieServiceImpl implements MovieService {
             if (Objects.equals(httpStatus, HttpStatus.NOT_FOUND)) {
                 log.info("No movie found in OMBD API for given title. ");
                 return Movie.builder()
-                        .title(null)
                         .errorCode(OmdbApiConstants.NOT_FOUND_ERROR_CODE)
-                        .errorMessages("No movie found in OMBD API for given title.")
+                        .errorMessages(OmdbApiConstants.NOT_FOUND_ERROR_MESSAGE)
                         .build();
             } else {
                 log.error("HttpStatus : " + httpStatus + " returned!", e);
@@ -76,9 +74,8 @@ public class MovieServiceImpl implements MovieService {
             log.error("Unexpected error occurred while getting movie!", e);
         }
         return Movie.builder()
-                .title(null)
                 .errorCode(OmdbApiConstants.NOT_FOUND_ERROR_CODE)
-                .errorMessages("Unexpected error occurred while getting movie!")
+                .errorMessages(OmdbApiConstants.UNEXPECTED_ERROR_MESSAGE)
                 .build();
     }
 
