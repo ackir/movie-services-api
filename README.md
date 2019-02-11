@@ -6,3 +6,7 @@ Movie Services For OMDB Api
 - mvn package
 - docker build -t movie-services-api .
 - docker-compose up -d
+
+OR
+
+- docker-compose up -d
