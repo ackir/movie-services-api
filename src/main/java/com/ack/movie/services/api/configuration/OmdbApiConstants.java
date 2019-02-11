@@ -11,6 +11,6 @@ public class OmdbApiConstants {
     public static final String UNEXPECTED_ERROR_MESSAGE = "Unexpected error occurred while getting movie!";
 
     private OmdbApiConstants() {
-        throw new IllegalAccessError("Can not access GenericConstants");
+        throw new IllegalAccessError("Can not access OmdbApiConstants");
     }
 }
