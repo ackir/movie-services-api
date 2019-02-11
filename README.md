@@ -13,3 +13,4 @@ swagger-url : localhost:8080/swagger-ui.html
 - If I had more time I refactored the service class.
 - Used Spring Cache. Spring Cache easy way this project. Response is not very large, choice was made.
 - JPA: JPA is a Java Persistance Api , jpa allows us management the relational data. This project used the spring data mongodb.
+- Also this project has actuator. We can access service status. (etc up.)
