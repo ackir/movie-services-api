@@ -6,7 +6,7 @@ services:
     - 27017:27017
 
   movie-services-api:
-    image: movie-services-api
+    image: aytunccankir/movie-services-api
     ports:
     - 8080:8080
     links:
